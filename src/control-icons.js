@@ -55,14 +55,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().zoomIn();
       },
-      false
+      {passive: false, capture: true}
     );
     zoomIn.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().zoomIn();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var zoomInBackground = document.createElementNS(SvgUtils.svgNS, "rect"); // TODO change these background space fillers to rounded rectangles so they look prettier
@@ -95,14 +95,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().reset();
       },
-      false
+      {passive: false, capture: true}
     );
     resetPanZoomControl.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().reset();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var resetPanZoomControlBackground = document.createElementNS(
@@ -161,14 +161,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().zoomOut();
       },
-      false
+      {passive: false, capture: true}
     );
     zoomOut.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().zoomOut();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var zoomOutBackground = document.createElementNS(SvgUtils.svgNS, "rect"); // TODO change these background space fillers to rounded rectangles so they look prettier

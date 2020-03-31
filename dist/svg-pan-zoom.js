@@ -58,14 +58,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().zoomIn();
       },
-      false
+      {passive: false, capture: true}
     );
     zoomIn.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().zoomIn();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var zoomInBackground = document.createElementNS(SvgUtils.svgNS, "rect"); // TODO change these background space fillers to rounded rectangles so they look prettier
@@ -98,14 +98,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().reset();
       },
-      false
+      {passive: false, capture: true}
     );
     resetPanZoomControl.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().reset();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var resetPanZoomControlBackground = document.createElementNS(
@@ -164,14 +164,14 @@ module.exports = {
       function() {
         instance.getPublicInstance().zoomOut();
       },
-      false
+      {passive: false, capture: true}
     );
     zoomOut.addEventListener(
       "touchstart",
       function() {
         instance.getPublicInstance().zoomOut();
       },
-      false
+      {passive: false, capture: true}
     );
 
     var zoomOutBackground = document.createElementNS(SvgUtils.svgNS, "rect"); // TODO change these background space fillers to rounded rectangles so they look prettier
@@ -624,7 +624,7 @@ var optionsDefaults = {
   onUpdatedCTM: null
 };
 
-var passiveListenerOption = { passive: true };
+var passiveListenerOption = { passive: false, capture: true };
 
 SvgPanZoom.prototype.init = function(svg, options) {
   var that = this;
@@ -780,7 +780,7 @@ SvgPanZoom.prototype.setupHandlers = function() {
     (this.options.eventsListenerElement || this.svg).addEventListener(
       event,
       this.eventListeners[event],
-      !this.options.preventMouseEventsDefault ? passiveListenerOption : false
+      {passive: false, capture: true}
     );
   }
 
@@ -808,7 +808,7 @@ SvgPanZoom.prototype.enableMouseWheelZoom = function() {
     Wheel.on(
       this.options.eventsListenerElement || this.svg,
       this.wheelListener,
-      isPassiveListener
+      {passive: false, capture: true}
     );
 
     this.options.mouseWheelZoomEnabled = true;
@@ -824,7 +824,7 @@ SvgPanZoom.prototype.disableMouseWheelZoom = function() {
     Wheel.off(
       this.options.eventsListenerElement || this.svg,
       this.wheelListener,
-      isPassiveListener
+      {passive: false, capture: true}
     );
     this.options.mouseWheelZoomEnabled = false;
   }
@@ -1279,7 +1279,7 @@ SvgPanZoom.prototype.destroy = function() {
     (this.options.eventsListenerElement || this.svg).removeEventListener(
       event,
       this.eventListeners[event],
-      !this.options.preventMouseEventsDefault ? passiveListenerOption : false
+      {passive: false, capture: true}
     );
   }
 
@@ -1810,8 +1810,7 @@ module.exports = (function(){
   //Full details: https://developer.mozilla.org/en-US/docs/Web/Reference/Events/wheel
 
   var prefix = "", _addEventListener, _removeEventListener, support, fns = [];
-  var passiveOption = {passive: true};
-
+  
   // detect event model
   if ( window.addEventListener ) {
     _addEventListener = "addEventListener";
@@ -1898,7 +1897,7 @@ module.exports = (function(){
       cb = createCallback(elem, callback);
     }
 
-    elem[_addEventListener](prefix + eventName, cb, isPassiveListener ? passiveOption : false);
+    elem[_addEventListener](prefix + eventName, cb, { passive: false, capture: true });
   }
 
   function _removeWheelListener(elem, eventName, callback, isPassiveListener ) {
@@ -1911,7 +1910,7 @@ module.exports = (function(){
       cb = getCallback(elem);
     }
 
-    elem[_removeEventListener](prefix + eventName, cb, isPassiveListener ? passiveOption : false);
+    elem[_removeEventListener](prefix + eventName, cb, { passive: false, capture: true });
 
     removeCallback(elem);
   }
